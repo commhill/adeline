@@ -15,6 +15,11 @@ version = "0.1.0"
 Flask = "^2.0.2"
 Flask-SQLAlchemy = "^2.5.1"
 python = "^3.10"
+Flask-Migrate = "^3.1.0"
+alembic = "^1.7.4"
+SQLAlchemy = "^1.4.25"
+Flask-GraphQL = "^2.0.1"
+graphene-sqlalchemy = "^2.3.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -24,6 +29,9 @@ pytest = "^5.2"
 mypy = "^0.910"
 pytest-cov = "^3.0.0"
 types-Flask = "^1.1.4"
+flask-sqlalchemy-stubs = "^0.2"
+graphene-stubs = "^0.15"
+sqlalchemy-stubs = "^0.4"
 
 [tool.poetry.scripts]
 run = "adeline.webapp:main"
@@ -31,18 +39,24 @@ run = "adeline.webapp:main"
 [tool.isort]
 profile = "black"
 
+[tool.pylint.'MESSAGES CONTROL']
+disable = ["too-few-public-methods"]
+
 [tool.mypy]
+# Setup plugins
+plugins = "sqlmypy"
+
 # Import discovery
 mypy_path = "src"
 namespace_packages = true
 
 # Disallow dynamic typing
-disallow_any_unimported = true
-disallow_any_expr = true
+disallow_any_unimported = false
+disallow_any_expr = false
 disallow_any_decorated = true
 disallow_any_explicit = true
-disallow_any_generics = true
-disallow_subclassing_any = true
+disallow_any_generics = false
+disallow_subclassing_any = false
 
 # Untyped definitions and calls
 disallow_untyped_calls = false

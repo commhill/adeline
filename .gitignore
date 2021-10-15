@@ -1,4 +1,4 @@
 /.tox
-/.mypy_cache
+/.mypy*
 
 __pycache__

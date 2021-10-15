@@ -1,5 +1,12 @@
-from adeline import __version__
+"""
+Just a placeholder test file.
+"""
+
+from adeline.webapp import app
 
 
-def test_version():
-    assert __version__ == '0.1.0'
+def test_app():
+    """
+    Just a demo test.
+    """
+    assert app

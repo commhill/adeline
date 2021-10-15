@@ -15,7 +15,7 @@ def init_app() -> Flask:
     """
     webapp: Flask = Flask(__name__)
 
-    if "SQLALCHEMY_DATABASE_URI" not in app.config:
+    if "SQLALCHEMY_DATABASE_URI" not in webapp.config:
         # Use sqlite when in local dev mode
         webapp.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tmp/adeline-webapp.db"
 
@@ -41,7 +41,7 @@ def init_blueprints(webapp: Flask) -> None:
 
     :param webapp: the flask instance.
     """
-    webapp.register_blueprint(api_blueprint)
+    webapp.register_blueprint(api_blueprint, url_prefix="/api")
 
 
 app: Flask = init_app()

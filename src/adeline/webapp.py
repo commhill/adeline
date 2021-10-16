@@ -1,12 +1,21 @@
 """
 Entry point for Flask
 """
-
 from flask import Flask
+from flask_login import LoginManager  # type: ignore
 from flask_migrate import Migrate  # type: ignore
 from flask_sqlalchemy import SQLAlchemy
 
 from adeline.api import api as api_blueprint
+
+
+def init_blueprints(webapp: Flask) -> None:
+    """
+    Register all of the blueprints
+
+    :param webapp: the flask instance.
+    """
+    webapp.register_blueprint(api_blueprint, url_prefix="/api")
 
 
 def init_app() -> Flask:
@@ -18,6 +27,8 @@ def init_app() -> Flask:
     if "SQLALCHEMY_DATABASE_URI" not in webapp.config:
         # Use sqlite when in local dev mode
         webapp.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///tmp/adeline-webapp.db"
+
+    init_blueprints(webapp)
 
     return webapp
 
@@ -35,19 +46,19 @@ def init_db(webapp: Flask) -> SQLAlchemy:
     return db_session
 
 
-def init_blueprints(webapp: Flask) -> None:
+def init_login_manager(webapp: Flask) -> LoginManager:
     """
-    Register all of the blueprints
+    Setup the login manager for users
 
     :param webapp: the flask instance.
+    :returns: the login manager
     """
-    webapp.register_blueprint(api_blueprint, url_prefix="/api")
+    return LoginManager(webapp)
 
 
 app: Flask = init_app()
 db: SQLAlchemy = init_db(app)
-
-init_blueprints(app)
+login_manager: LoginManager = init_login_manager(app)
 
 
 @app.route("/health_check")

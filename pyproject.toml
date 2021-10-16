@@ -20,6 +20,7 @@ alembic = "^1.7.4"
 SQLAlchemy = "^1.4.25"
 Flask-GraphQL = "^2.0.1"
 graphene-sqlalchemy = "^2.3.0"
+Flask-Login = "^0.5.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"

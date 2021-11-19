@@ -1,4 +1,4 @@
 /.tox
 /.mypy*
-
+.DS_Store
 __pycache__

@@ -12,15 +12,10 @@ packages = [
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-Flask = "^2.0.2"
-Flask-SQLAlchemy = "^2.5.1"
-python = "^3.10"
-Flask-Migrate = "^3.1.0"
-alembic = "^1.7.4"
-SQLAlchemy = "^1.4.25"
-Flask-GraphQL = "^2.0.1"
-graphene-sqlalchemy = "^2.3.0"
-Flask-Login = "^0.5.0"
+python = "^3.9"
+fastapi = "^0.70.0"
+uvicorn = "^0.15.0"
+gunicorn = "^20.1.0"
 
 [tool.poetry.dev-dependencies]
 black = "^21.9b0"
@@ -29,13 +24,10 @@ pylint = "^2.11.1"
 pytest = "^5.2"
 mypy = "^0.910"
 pytest-cov = "^3.0.0"
-types-Flask = "^1.1.4"
-flask-sqlalchemy-stubs = "^0.2"
-graphene-stubs = "^0.15"
-sqlalchemy-stubs = "^0.4"
+requests = "^2.26.0"
 
 [tool.poetry.scripts]
-run = "adeline.webapp:main"
+start = "adeline.main:start"
 
 [tool.isort]
 profile = "black"
@@ -44,9 +36,6 @@ profile = "black"
 disable = ["too-few-public-methods"]
 
 [tool.mypy]
-# Setup plugins
-plugins = "sqlmypy"
-
 # Import discovery
 mypy_path = "src"
 namespace_packages = true

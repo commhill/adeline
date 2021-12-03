@@ -24,6 +24,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
         build-essential
+RUN apt-get upgrade -y
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.1.12

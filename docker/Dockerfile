@@ -17,7 +17,6 @@ ENV PYTHONUNBUFFERED=1 \
 
 ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
-
 # builder-base is used to build dependencies
 FROM python-base as builder-base
 RUN apt-get update \
@@ -35,8 +34,7 @@ RUN poetry --version
 # and install only runtime deps using poetry
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
-RUN poetry install --no-dev  # respects 
-
+RUN poetry install --no-dev
 
 # 'development' stage installs all dev deps and can be used to develop code.
 # For example using docker-compose to mount local volume under /app
@@ -61,7 +59,6 @@ COPY . .
 EXPOSE 8000
 ENTRYPOINT /docker-entrypoint.sh $0 $@
 CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "main:app"]
-
 
 # 'lint' stage runs isort, black, pylint and mypy
 # running in check mode means build will fail if any linting errors occur

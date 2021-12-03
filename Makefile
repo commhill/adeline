@@ -11,6 +11,6 @@ run:
 	poetry run uvicorn app.main:app --reload --host localhost --port 8000
 
 docker:
-	docker build --tag poetry-project --file docker/Dockerfile . 
+	docker build --tag adeline --file docker/Dockerfile . 
 
 all: install docker

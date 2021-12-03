@@ -9,5 +9,5 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Build a docker image
-      run: make docker
+    - name: Build container image
+      run: docker build --tag adeline --file docker/Dockerfile .

@@ -67,7 +67,7 @@ CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "main:app"]
 # running in check mode means build will fail if any linting errors occur
 FROM development AS lint
 RUN black --config ./pyproject.toml --check app tests
-RUN isort --settings-path ./pyproject.toml --recursive --check-only
+RUN isort --settings-path ./pyproject.toml --recursive --check-only app tests
 CMD ["tail", "-f", "/dev/null"]
 
 

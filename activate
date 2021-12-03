@@ -1,2 +1,0 @@
-#!/bin/bash
-source .tox/py310/bin/activate

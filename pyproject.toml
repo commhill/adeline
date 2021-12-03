@@ -1,6 +1,6 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core==1.1.12"]
 
 [tool.poetry]
 authors = ["Jon Bringhurst <jon@bringhurst.org>"]
@@ -9,7 +9,7 @@ name = "adeline"
 version = "0.1.0"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "3.10.0"
 fastapi = "^0.70.0"
 uvicorn = "^0.15.0"
 gunicorn = "^20.1.0"
@@ -25,6 +25,17 @@ requests = "^2.26.0"
 
 [tool.poetry.scripts]
 start = "adeline.main:start"
+
+[tool.black]
+exclude = '''
+(
+  /(
+    \.git
+    | \.mypy_cache
+    | \.pytest_cache
+  )/
+)
+'''
 
 [tool.isort]
 profile = "black"

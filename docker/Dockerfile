@@ -63,20 +63,21 @@ ENTRYPOINT /docker-entrypoint.sh $0 $@
 CMD ["uvicorn", "--reload", "--host=0.0.0.0", "--port=8000", "main:app"]
 
 
-# 'lint' stage runs black and isort
+# 'lint' stage runs isort, black, pylint and mypy
 # running in check mode means build will fail if any linting errors occur
 FROM development AS lint
-RUN black --config ./pyproject.toml --check app tests
-RUN isort --settings-path ./pyproject.toml --recursive --check-only app tests
+RUN isort --settings-path ./pyproject.toml --recursive --check-only app/ tests/
+RUN black --config ./pyproject.toml --check app/ tests/
+RUN pylint app/ tests/
+RUN mypy app
 CMD ["tail", "-f", "/dev/null"]
 
-
-# 'test' stage runs our unit tests with pytest and
-# coverage.  Build will fail if test coverage is under 95%
+# 'test' stage runs our unit tests with pytest
 FROM development AS test
-RUN coverage run --rcfile ./pyproject.toml -m pytest ./tests
-RUN coverage report --fail-under 95
-
+RUN poetry run pytest --cov-report term-missing \
+                      --cov=app \
+                      --cov-fail-under=100 \
+                      tests/
 
 # 'production' stage uses the clean 'python-base' stage and copyies
 # in only our runtime deps that were installed in the 'builder-base'

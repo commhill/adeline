@@ -10,4 +10,4 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Build container image
-      run: docker build --tag adeline --file docker/Dockerfile .
+      run: make docker
